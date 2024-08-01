@@ -5,7 +5,7 @@ import { Context } from "../store/appContext";
 
 function PlanetCard() {
     const { store, actions } = useContext(Context);
-    const { planets, setPlanets} = useState([]);
+    const [ planets, setPlanets] = useState([]);
 
 
     useEffect(() =>{
@@ -30,7 +30,7 @@ function PlanetCard() {
         className="d-flex col-10 overflow-auto mt-5 mx-auto cards"
         style={{ height: "50rem"}}
         >
-            {planets.map((planet, index) =>{
+            {planets?.map((planet, index) =>{
                 const isFavorite = store.favorites.some(
                     (fav) => fav.uid === planet.uid && fav.type === "planets"
                 );

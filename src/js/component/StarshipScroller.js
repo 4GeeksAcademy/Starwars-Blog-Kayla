@@ -1,7 +1,7 @@
 import React from "react";
 import StarshipCard from "./StarshipCard";
 
-import "../styles/home.css";
+//import "../styles/home.css";
 
 const StarshipScroller = () => {
     return(

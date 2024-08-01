@@ -2,13 +2,13 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 
-import { Home } from "./views/01_home";
+import { Home } from "./views/home";
 import CharacterDetail from "./views/CharacterDetail";
 import PlanetDetail from "./views/PlanetDetail";
 import StarshipDetail from "./views/StarshipDetail";
 import injectContext from "./store/appContext";
 
-import { Navbar } from "./component/navbar";
+import { Navbar } from "./component/Navbar";
 import { Footer } from "./component/footer";
 
 //create your first component

@@ -1,11 +1,11 @@
 import React,{useContext, useEffect, useState} from "react";
 import { Link } from 'react-router-dom';
-import "../styles/home.css";
+//import "../styles/home.css";
 import {Context} from "../store/appContext";
 
 export const Navbar = () => {
   const {store, actions} = useContext (Context);
-  const {favorites,setfavorites} = useState([]);
+  const [favorites,setFavorites] = useState([]);
 
   useEffect(() => {
     setFavorites(store.favorites);

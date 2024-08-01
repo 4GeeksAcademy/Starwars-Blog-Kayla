@@ -1,4 +1,4 @@
-import React, { useContext, uasEffect, useState} from "react";
+import React, { useContext, useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 import "../../styles/home.css";
 import { Context } from "../store/appContext";
@@ -10,11 +10,11 @@ function PeopleCard() {
     useEffect(() => {
         actions.fetchPeople();
     } , []);
-
+    
     useEffect(() => {
-        setPeople.apply(store.people);
-    },  ``                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              `` [store.people]);
-
+      setPeople.apply(store.people);
+  } , []);
+    
     const handleFavorites = (person)=> {
         const isFavorite = store.favorites.some((fav) => fav.id === person.id);
         if(isFavorite) {
@@ -29,7 +29,7 @@ function PeopleCard() {
         className="d-flex col-10 overflow-auto mt-5 mx-auto cards"
         style= {{ height: "50rem"}}
         >
-        { people.map((person, index) => {
+        { people?.map((person, index) => {
           const isFavorite = store.favorites.some(
             (fav) => fav.uid === person.uid && fav.type === "character"
           );

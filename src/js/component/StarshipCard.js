@@ -8,7 +8,7 @@ function StarshipCard() {
   const [starships, setStarships] = useState([]);
 
 useEffect(() => {
-    actions.fetchstarships();
+    actions.fetchStarships();
     }, []);
 
 useEffect(() => {
