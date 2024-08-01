@@ -1,65 +1,69 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 	  store: {
-		demo: [
-		  {
-			title: "FIRST",
-			background: "white",
-			initial: "white"
-		  },
-		  {
-			title: "SECOND",
-			background: "white",
-			initial: "white"
-		  }
-		],
 		people: [],
-		vehicles: [],
 		planets: [],
-		favorites: []
+		starships: [],
+		favorites: [],
+		currentPerson: {},
+		currentPlanet: {},
+		currentStarship: {},
 	  },
 	  actions: {
-		// Existing actions
-		exampleFunction: () => {
-		  getActions().changeColor(0, "green");
+		
+		fetchPeople: async() => {
+			const response = await fetch("https://www.swapi.tech/api/people/")
+			const data = await response.json()
+			setStore({people: data.results})
 		},
-		changeColor: (index, color) => {
+		fetchPlanets: async() => {
+			const response = await fetch("https://www.swapi.tech/api/planets/")
+			const data = await response.json()
+			setStore({planets: data.results})
+		},
+		fetchStarships: async() => {
+			const response = await fetch("https://www.swapi.tech/api/starships/")
+			const data = await response.json()
+			setStore({starships: data.results})
+		},
+		fetchPersonDetail: async (uid) => {
+			const response = await fetch(`https://www.swapi.tech/api/people/${uid}`)
+			const data = await response.json();
+			console.log(data)
+			setStore({ currentPerson: data.result.properties });
+		},
+  
+  
+		fetchPlanetDetail: async (uid) => {
+			const response = await fetch(`https://www.swapi.tech/api/planets/${uid}`)
+			const data = await response.json();
+			console.log(data)
+			setStore({ currentPlanet: data.result.properties });
+		},
+  
+
+		fetchStarshipDetail: async (uid) => {
+			const response = await fetch(`https://www.swapi.tech/api/starships/${uid}`)
+			const data = await response.json();
+			console.log(data)
+			setStore({ currentStarship: data.result.properties });
+		},
+
+		addFavorites: (name, uid, type) => {
 		  const store = getStore();
-		  const demo = store.demo.map((elm, i) => {
-			if (i === index) elm.background = color;
-			return elm;
-		  });
-		  setStore({ demo: demo });
+		  const newFavorite = { name, uid, type }; // Include a type ('person', 'planet', 'starship')
+		  const newFavorites = [...store.favorites, newFavorite];
+		  setStore({ favorites: newFavorites });
 		},
-		// New actions for fetching data
-		loadPeople: () => {
-		  fetch("https://www.swapi.tech/api/people")
-			.then((response) => response.json())
-			.then((data) => setStore({ people: data.results }));
-		},
-		loadVehicles: () => {
-		  fetch("https://www.swapi.tech/api/vehicles")
-			.then((response) => response.json())
-			.then((data) => setStore({ vehicles: data.results }));
-		},
-		loadPlanets: () => {
-		  fetch("https://www.swapi.tech/api/planets")
-			.then((response) => response.json())
-			.then((data) => setStore({ planets: data.results }));
-		},
-		// Action to handle favorites
-		toggleFavorite: (item) => {
+  
+		removeFavorites: (name) => {
 		  const store = getStore();
-		  const favorites = store.favorites;
-		  const index = favorites.findIndex((fav) => fav.uid === item.uid);
-		  if (index === -1) {
-			favorites.push(item);
-		  } else {
-			favorites.splice(index, 1);
-		  }
-		  setStore({ favorites: favorites });
-		}
-	  }
+		  const newFavorites = store.favorites.filter(
+			(favorite) => favorite.name !== name
+		  );
+		  setStore({ favorites: newFavorites });
+		},
+	  },
 	};
   };
   
