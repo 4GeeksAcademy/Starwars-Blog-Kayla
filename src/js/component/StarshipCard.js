@@ -7,31 +7,31 @@ function StarshipCard() {
   const { store, actions } = useContext(Context);
   const [starships, setStarships] = useState([]);
 
-useEffect(() => {
+  useEffect(() => {
     actions.fetchStarships();
-    }, []);
+  }, []);
 
-useEffect(() => {
+  useEffect(() => {
     setStarships(store.starships);
-}, [store.starships]);
+  }, [store.starships]);
 
-const handlefavorites = (starship) => {
+  const handleFavorites = (starship) => {
     const isFavorite = store.favorites.some((fav) => fav.uid === starship.uid);
     if (isFavorite) {
-        actions.removefavorites(starship.name);
+      actions.removeFavorites(starship.name);
     } else {
-        actions.addfavorites(starship.model, starship.uid, "starships");
+      actions.addFavorites(starship.name, starship.uid, "starship");
     }
-};
+  };
 
-return (
+  return (
     <div
       className="d-flex col-10 overflow-auto mt-5 mx-auto cards"
       style={{ height: "50rem" }}
     >
       {starships.map((starship, index) => {
         const isFavorite = store.favorites.some(
-          (fav) => fav.uid === starship.uid && fav.type === "starships"
+          (fav) => fav.uid === starship.uid && fav.type === "starship"
         );
         return (
           <div
